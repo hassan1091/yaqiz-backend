@@ -24,7 +24,7 @@ router.post("/login", (req, res) => {
   let { email, password } = req.body;
   db.query(sql, [email, password], (err, result) => {
     if (err) throw err;
-    res.send(result);
+    res.send(result[0]);
   });
 });
 
