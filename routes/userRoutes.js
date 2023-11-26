@@ -1,25 +1,35 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const db = require('../db.js');
+const db = require("../db.js");
 
-router.get('/', (req, res) => {
-  let sql = 'SELECT * FROM user';
+router.get("/", (req, res) => {
+  let sql = "SELECT * FROM user";
   db.query(sql, (err, result) => {
     if (err) throw err;
     res.send(result);
   });
 });
 
-router.get('/:id', (req, res) => {
-  let sql = 'SELECT * FROM user WHERE Employee_ID = ?';
+router.get("/:id", (req, res) => {
+  let sql = "SELECT * FROM user WHERE Employee_ID = ?";
   db.query(sql, req.params.id, (err, result) => {
     if (err) throw err;
     res.send(result);
   });
 });
 
-router.post('/', (req, res) => {
-  let sql = 'INSERT INTO user SET ?';
+router.post("/login", (req, res) => {
+  let sql =
+    "SELECT * FROM user WHERE Employee_Email = ? AND Employee_Password = ?";
+  let { email, password } = req.body;
+  db.query(sql, [email, password], (err, result) => {
+    if (err) throw err;
+    res.send(result);
+  });
+});
+
+router.post("/", (req, res) => {
+  let sql = "INSERT INTO user SET ?";
   let user = req.body;
   db.query(sql, user, (err, result) => {
     if (err) throw err;
@@ -27,16 +37,16 @@ router.post('/', (req, res) => {
   });
 });
 
-router.put('/:id', (req, res) => {
-  let sql = 'UPDATE user SET ? WHERE Employee_ID = ?';
+router.put("/:id", (req, res) => {
+  let sql = "UPDATE user SET ? WHERE Employee_ID = ?";
   db.query(sql, [req.body, req.params.id], (err, result) => {
     if (err) throw err;
     res.send(result);
   });
 });
 
-router.delete('/:id', (req, res) => {
-  let sql = 'DELETE FROM user WHERE Employee_ID = ?';
+router.delete("/:id", (req, res) => {
+  let sql = "DELETE FROM user WHERE Employee_ID = ?";
   db.query(sql, req.params.id, (err, result) => {
     if (err) throw err;
     res.send(result);
