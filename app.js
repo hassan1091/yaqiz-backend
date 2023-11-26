@@ -1,6 +1,18 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const xlsx = require('xlsx')
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: ""
+});
+
+con.connect((err) => {
+  if (err) throw err;
+  console.log("Connected!");
+});
 
 const app = express();
 
