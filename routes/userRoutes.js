@@ -31,9 +31,13 @@ router.post("/login", (req, res) => {
 router.post("/", (req, res) => {
   let sql = "INSERT INTO user SET ?";
   let user = req.body;
-  db.query(sql, user, (err, result) => {
+  db.query(sql, user, (err, insertResult) => {
     if (err) throw err;
-    res.send(result);
+    let sql = "SELECT * FROM user WHERE Employee_ID = ?";
+    db.query(sql, insertResult["insertId"], (err, result) => {
+      if (err) throw err;
+      res.send(result[0]);
+    });
   });
 });
 
