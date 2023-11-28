@@ -20,9 +20,9 @@ router.get("/:id", (req, res) => {
 
 router.post("/login", (req, res) => {
   let sql =
-    "SELECT * FROM user WHERE Employee_Email = ? AND Employee_Password = ?";
-  let { email, password } = req.body;
-  db.query(sql, [email, password], (err, result) => {
+    "SELECT * FROM user WHERE Employee_ID = ? AND Employee_Password = ?";
+  let { id, password } = req.body;
+  db.query(sql, [id, password], (err, result) => {
     if (err) throw err;
     res.send(result[0]);
   });
