@@ -45,7 +45,7 @@ router.put("/:id", (req, res) => {
   let sql = "UPDATE user SET ? WHERE Employee_ID = ?";
   db.query(sql, [req.body, req.params.id], (err, result) => {
     if (err) throw err;
-    res.send(result);
+    res.send(result[0]);
   });
 });
 
