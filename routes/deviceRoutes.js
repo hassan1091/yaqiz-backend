@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   let sql =
-    "SELECT device.Device_ID,device.Device_Location FROM `user_has_device` JOIN `user`JOIN `device` WHERE Device_Device_ID = device.Device_ID and User_Employee_ID = user.Employee_ID and User_Employee_ID = ?";
+    "SELECT device.Device_ID, device.Device_Location, vital_signs.Priority FROM `user_has_device` JOIN `user` ON user.Employee_ID = user_has_device.User_Employee_ID JOIN `device` ON device.Device_ID = user_has_device.Device_Device_ID JOIN device_has_vital_signs ON device.Device_ID = device_has_vital_signs.Device_Device_ID JOIN vital_signs ON device_has_vital_signs.Vital_Signs_Vital_ID = vital_signs.Vital_ID WHERE User_Employee_ID = ?;";
   db.query(sql, req.params.id, (err, result) => {
     if (err) throw err;
     res.send(result);
