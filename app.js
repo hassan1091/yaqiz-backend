@@ -31,15 +31,28 @@ const greenData = xlsx.utils.sheet_to_json(
 app.get("/red", async (req, res) => {
   for (let i = 0; i < redData.length; i++) {
     const element = redData[i];
+    console.log("R:");
     console.log(element);
     await delay(5000);
   }
   res.send(redData);
 });
-app.get("/yellow", (req, res) => {
+app.get("/yellow", async (req, res) => {
+  for (let i = 0; i < redData.length; i++) {
+    const element = yellwData[i];
+    console.log("Y:");
+    console.log(element);
+    await delay(5000);
+  }
   res.send(yellwData);
 });
-app.get("/green", (req, res) => {
+app.get("/green", async (req, res) => {
+  for (let i = 0; i < redData.length; i++) {
+    const element = greenData[i];
+    console.log("G:");
+    console.log(element);
+    await delay(5000);
+  }
   res.send(greenData);
 });
 
