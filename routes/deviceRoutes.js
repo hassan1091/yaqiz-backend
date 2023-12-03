@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
 
 router.get("/all/:id", (req, res) => {
   let sql =
-    "SELECT Device_ID, (SELECT EXISTS (SELECT 1 FROM user_has_device WHERE user_has_device.Device_Device_ID = device.Device_ID AND user_has_device.User_Employee_ID = 4)) AS has FROM device;";
+    "SELECT Device_ID, (SELECT EXISTS (SELECT 1 FROM user_has_device WHERE user_has_device.Device_Device_ID = device.Device_ID AND user_has_device.User_Employee_ID = ?)) AS has FROM device;";
   db.query(sql, req.params.id, (err, result) => {
     if (err) throw err;
     res.send(result);
@@ -44,7 +44,7 @@ router.delete("/", (req, res) => {
   let { userId, deviceId } = req.body;
   db.query(sql, [userId, deviceId], (err, result) => {
     if (err) throw err;
-    res.send(result[0]);
+    res.send(result);
   });
 });
 
