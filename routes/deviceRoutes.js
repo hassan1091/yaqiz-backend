@@ -38,4 +38,12 @@ router.get("/signs/:id", (req, res) => {
   });
 });
 
+router.delete("/", (req, res) => {
+  let sql = "DELETE FROM `user_has_device` WHERE `user_has_device`.`User_Employee_ID` = ? AND `user_has_device`.`Device_Device_ID` = ?"
+  let { userId, deviceId } = req.body;
+  db.query(sql, [userId, deviceId], (err, result) => {
+    if (err) throw err;
+    res.send(result[0]);
+  });
+})
 module.exports = router;
