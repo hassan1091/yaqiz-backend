@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const xlsx = require("xlsx");
+const db = require("./db.js");
+
 //router routes
 const userRoutes = require("./routes/userRoutes");
 const deviceRoutes = require("./routes/deviceRoutes");
@@ -55,6 +57,30 @@ app.get("/green", async (req, res) => {
   }
   res.send(greenData);
 });
+
+app.get('/start',async (req, res) => {
+  for (let i = 0; i < redData.length; i++) {
+    const element = redData[i];
+    await delay(12000);
+    let sql =
+      "UPDATE `vital_signs` SET `HR` = '" +
+      element["Heart Rate"] +
+      "', `SPO2` = '" +
+      element["SpO2 (%)"] +
+      "', `BP` = '" +
+      element["blood pressure"] +
+      "', `Temp` = '" +
+      element["Temperature (°C)"] +
+      "', `Respiratory_Rate`" +
+      " = '" +
+      element["Respiratory Rate "] +
+      "', `Priority` = '" +
+      element["P"] +
+      "' WHERE `vital_signs`.`Vital_ID` in (4533,4532)";
+    db.query(sql, (err, result) => {
+    });
+  }
+})
 
 app.listen(process.env.PORT || 8080, function () {
   console.log("Server started on port 8080");
